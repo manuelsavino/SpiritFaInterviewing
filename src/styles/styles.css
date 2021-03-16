@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.escapeTailwinList {
+  list-style: disc;
+  list-style-position: inside;
+}

@@ -1,34 +1,37 @@
 import Head from 'next/head';
-import Link from 'next/link';
+import { useBeforeunload } from 'react-beforeunload';
 import { useUser } from '@auth0/nextjs-auth0';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { useState, useEffect, useRef } from 'react';
+import Nav from '../components/Nav';
+import Form from '../components/Form';
 
 const Index = () => {
   const { user, isLoading } = useUser();
 
+  const [questions, setQuestions] = useState([]);
+  const [saved, setSaved] = useState({});
+
+  useEffect(() => {
+    setSaved(JSON.parse(localStorage.getItem('faLocalSave')));
+    fetch('/api/getQuestions')
+      .then((res) => res.json())
+      .then((data) => setQuestions(data.records));
+  }, []);
+
+  useBeforeunload((event) => event.preventDefault());
+
   return (
-    <div className='container mx-auto mt-5'>
-      <Head>
-        <title>NextJS Starter</title>
-      </Head>
-      {!isLoading && user && (
-        <Link
-          className='py-2 px-4 text-white rounded bg-red-500'
-          href='/api/auth/logout'
-        >
-          <a className='py-2 px-4 text-white rounded bg-red-500'>Logout</a>
-        </Link>
-      )}
-      {!isLoading && !user && (
-        <Link
-          className='py-2 px-4 text-white rounded bg-blue-500'
-          href='/api/auth/login'
-        >
-          Login
-        </Link>
-      )}
-      <h1 className='text-7xl pt-5'>Hello</h1>
-    </div>
+    <>
+      <Nav />
+      <div className='container pt-5 mx-auto'>
+        <Head>
+          <title>NextJS Starter</title>
+        </Head>
+
+        {questions.length > 0 && <Form questions={questions} saved={saved} />}
+      </div>
+    </>
   );
 };
 

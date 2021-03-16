@@ -13,11 +13,18 @@
   "license": "ISC",
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.2.0",
+    "@react-pdf/renderer": "^1.6.13",
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindui/react": "^0.1.1",
+    "airtable": "^0.10.1",
     "autoprefixer": "^10.2.5",
     "next": "^10.0.8",
     "postcss": "^8.2.8",
     "react": "^17.0.1",
+    "react-beforeunload": "^2.4.0",
     "react-dom": "^17.0.1",
-    "tailwindcss": "^2.0.3"
+    "react-hook-form": "^6.15.4",
+    "tailwindcss": "^2.0.3",
+    "uuid": "^8.3.2"
   }
 }
